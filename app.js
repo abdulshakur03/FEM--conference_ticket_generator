@@ -30,7 +30,6 @@ dragArea.addEventListener("dragover", (e) => {
   dragAreaHover.classList.add("active");
 });
 dragArea.addEventListener("dragleave", (e) => {
-  console.log("left");
   dragAreaHover.classList.remove("active");
 });
 dragArea.addEventListener("drop", (e) => {
@@ -42,13 +41,15 @@ dragArea.addEventListener("drop", (e) => {
 ///(choose file)
 function imageUpload() {
   let fileType = file.type;
-  // console.log(fileType);
-
   const validFileType = ["image/jpeg", "image/png"];
+  const maxSize = 500 * 1024;
+  if (file.size > maxSize) {
+    uploadHint.textContent = `File too large, please upload a photo under 500KB`;
+    uploadHint.style.color = "hsla(7, 71%, 60%)";
+    uploadHintImage.style.color = "hsla(7, 71%, 60%)";
+    return;
+  }
   if (validFileType.includes(fileType)) {
-    // console.log("it works");
-
-    ///removed
     const fileReader = new FileReader();
     fileReader.onload = () => {
       let fileURL = fileReader.result;
@@ -61,19 +62,16 @@ function imageUpload() {
 
     fileReader.readAsDataURL(file);
   } else {
-    uploadHint.textContent = `File too large, please upload a photo under 500KB`;
+    uploadHint.textContent = `Invalid file type. Please upload a JPG or PNG.`;
     uploadHint.style.color = "hsla(7, 71%, 60%)";
-    uploadHintImage.style.color = "hsla(7, 71%, 60%)";
-    // modifyImage();
-    // uploadHint.setAttribute("style", "color: hsla(7, 71%, 60%)");
   }
 }
 
-///
+/// Modify Image controls
 function modifyImage() {
   const modification = document.querySelector(".editParent");
   const uploadText = document.querySelector(".upload_text");
-  // if (modification) modification.remove();
+  if (modification) modification.remove(); // preveents duplicate
 
   const removeImageBtn = document.createElement("div");
   const changeImageBtn = document.createElement("div");
@@ -85,38 +83,23 @@ function modifyImage() {
   changeImageBtn.textContent = "Change image";
   imageControlContainer.append(removeImageBtn, changeImageBtn);
   avatarUpload.parentElement.appendChild(imageControlContainer);
-  avatarUpload.nextElementSibling.remove();
   uploadHint.textContent = ` Upload your photo (JPG or PNG, max size: 500KB).`;
   uploadHint.style.color = "white";
-
-  document.addEventListener("click", (e) => {
-    if (e.target.classList.contains("remove")) {
-      avatarUpload.innerHTML = ` <img
-                  src="./assets/images/icon-upload.svg"
-                  alt="upload"
+}
+// Remove or Change Image
+document.addEventListener("click", (e) => {
+  if (e.target.classList.contains("remove")) {
+    avatarUpload.innerHTML = ` <img
+                  src="https://raw.githubusercontent.com/abdulshakur03/FEM--conference_ticket_generator/5e409c5fa55781c79db08263a3f1c86ac39a6c3a/assets/images/icon-upload.svg"
                   class="upload-icon"
                 />`;
-      imageControlContainer.remove();
-      dragArea.append(uploadText);
-      uploadHint.textContent = ` Upload your photo (JPG or PNG, max size: 500KB).`;
-      uploadHint.style.color = "white";
-    }
-    if (e.target.classList.contains("change")) {
-      changeImageBtn.addEventListener("click", (e) => {
-        // e.stopPropagation();
-        fileClick.click(); // Triggers the hidden file input
-      });
-
-      fileClick.addEventListener("change", (e) => {
-        file = e.target.files[0];
-        // console.log(file);
-
-        if (file) {
-          imageUpload(); // Call your upload function here
-        }
-      });
-    }
-  });
-}
-
-function changeAndRemoveBtn() {}
+    const editContainer = document.querySelector(".editParent");
+    if (editContainer) editContainer.remove();
+    dragArea.append(uploadText);
+    uploadHint.textContent = ` Upload your photo (JPG or PNG, max size: 500KB).`;
+    uploadHint.style.color = "white";
+  }
+  if (e.target.classList.contains("change")) {
+    fileClick.click(); //Triggers the hidden file input
+  }
+});
