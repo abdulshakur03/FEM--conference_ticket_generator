@@ -25,12 +25,13 @@
       }
     </style> -->
     <link rel="stylesheet" href="styles.css" />
+    <script defer src="app.js"></script>
   </head>
   <body>
     <!-- Form starts -->
 
     <div class="container">
-      <form>
+      <form id="form">
         <header>
           <div class="title flex">
             <img
@@ -70,7 +71,7 @@
           <input type="file" name="upload" id="avatarUpload" />
           <div class="uploadHint flex" style="margin-top: 5px">
             <img
-              src="https://raw.githubusercontent.com/abdulshakur03/FEM--conference_ticket_generator/5e409c5fa55781c79db08263a3f1c86ac39a6c3a/assets/images/icon-info.svg"
+              src="./assets/images/icon-info.svg"
               alt="info"
               class="upload_hint_image"
             />
@@ -83,6 +84,7 @@
           <div class="inputType flex">
             <label for="name">Full Name</label>
             <input type="text" name="name" class="input" />
+              <div class="error"></div>
           </div>
           <div class="inputType flex">
             <label for="email">Email Address</label
@@ -92,6 +94,7 @@
               class="input"
               placeholder="example@email.com"
             />
+              <div class="error"></div>
           </div>
           <div class="inputType flex">
             <label for="gitHub">GitHub Username</label>
@@ -101,8 +104,17 @@
               class="input"
               placeholder="@yourusername"
             />
+            <div class="error"></div>
           </div>
-          <input type="button" name="" id="" value="Generate My Ticket" />
+          <div class="inputType submit">
+            <input
+              type="submit"
+              name="submit"
+              id="button"
+              value="Generate My Ticket"
+            />
+            
+          </div>
           <!-- <div class="remove">Remove image</div> -->
         </section>
       </form>
@@ -110,9 +122,8 @@
       <div class="attribution">
         Challenge by
         <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a
-        >. Coded by <a href="#">Your Name Here</a>.
+        >. Coded by <a href="#">MAO</a>.
       </div>
     </div>
-    <script src="app.js"></script>
   </body>
 </html>

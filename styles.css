@@ -9,7 +9,7 @@
 }
 
 body {
-  background-image: url(https://github.com/abdulshakur03/FEM--conference_ticket_generator/blob/main/assets/images/background-desktop.png?raw=true);
+  background-image: url(./assets/images/background-desktop.png);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -34,7 +34,7 @@ body {
 }
 
 form {
-  width: 55%;
+  width: 70%;
   margin: 0 auto;
 }
 
@@ -104,7 +104,8 @@ form {
   padding-left: 10px;
 }
 
-input[type="button"] {
+input[type="submit"] {
+  width: 100%;
   padding: 15px;
   border: 1px solid rgba(255, 255, 255, 0.397);
   border-radius: 10px;
@@ -165,4 +166,16 @@ input[type="button"] {
   margin: 30px 0;
   font-size: 12px;
   align-self: center;
+}
+
+.error {
+  font-size: 11px;
+  color: hsl(7, 86%, 67%);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.fields {
+  border-color: hsl(7, 86%, 67%);
 }

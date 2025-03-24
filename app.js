@@ -71,7 +71,7 @@ function imageUpload() {
 function modifyImage() {
   const modification = document.querySelector(".editParent");
   const uploadText = document.querySelector(".upload_text");
-  if (modification) modification.remove(); // preveents duplicate
+  if (modification) modification.remove(); // prevents duplicate
 
   const removeImageBtn = document.createElement("div");
   const changeImageBtn = document.createElement("div");
@@ -103,3 +103,31 @@ document.addEventListener("click", (e) => {
     fileClick.click(); //Triggers the hidden file input
   }
 });
+
+//forms
+const form = document.querySelector("#form");
+const nameField = form.querySelector('input[name ="name"]');
+const emailField = form.querySelector('input[type ="email"]');
+const error = form.querySelector(".error");
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  errorMessage("please enter full name");
+});
+
+const errorMessage = (message) => {
+  const minNum = 8;
+  if (nameField.value === "" || nameField.value.length < minNum) {
+    const icon = document.createElement("img");
+    icon.setAttribute("src", "/assets/images/icon-info.svg");
+    error.innerHTML = "";
+    error.appendChild(icon);
+    error.appendChild(document.createTextNode(message));
+    error.classList.add("error");
+    nameField.classList.add("fields");
+  } else {
+    error.textContent = "";
+    error.classList.remove("error");
+    nameField.classList.remove("fields");
+  }
+};
