@@ -9,7 +9,7 @@
 }
 
 body {
-  background-image: url(./assets/images/background-desktop.png);
+  background: url(./assets/images/background-desktop.png);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -22,9 +22,15 @@ body {
 .container {
   width: 100%;
   background-image: url(./assets/images/pattern-lines.svg),
-    url(./assets/images/pattern-circle.svg)
-      /* url(./assets/images/pattern-squiggly-line-bottom-desktop.svg), */
-      /* url(./assets/images/pattern-squiggly-line-top.svg)*/;
+    url(./assets/images/pattern-circle.svg),
+    url(./assets/images/pattern-squiggly-line-bottom-desktop.svg),
+    url(./assets/images/pattern-squiggly-line-top.svg);
+
+  background-position: center, top left, bottom left, top right;
+  background-size: 100% auto,
+    /* Scale 'pattern-lines.svg' to full width */ 150px 150px,
+     500px auto, 400px 300px;
+    
   background-repeat: no-repeat;
   padding-top: 80px;
   margin-top: -80px;
@@ -36,6 +42,13 @@ body {
 form {
   width: 70%;
   margin: 0 auto;
+}
+
+.body {
+  background-image: url(./assets/images/pattern-squiggly-line-top.svg);
+  background-repeat: no-repeat;
+  background-position: right top;
+  background-size: contain;
 }
 
 .title {
