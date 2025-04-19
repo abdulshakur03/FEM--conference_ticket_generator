@@ -108,66 +108,66 @@ document.addEventListener("click", (e) => {
 const form = document.querySelector("#form");
 const nameField = form.querySelector('input[name ="name"]');
 const email = form.querySelector('input[type ="email"]');
-const error = form.querySelector(".error");
+const gitHubField = form.querySelector('input[name ="gitHub"]');
+const errorName = form.querySelector(".errorName");
+const errorEmail = form.querySelector(".errorEmail");
+const errorGithub = form.querySelector(".errorGithub");
 
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  errorMessage("please enter full name");
-});
-
-const errorMessage = (message) => {
-  const minNum = 8;
-  if (nameField.value === "" || nameField.value.length < minNum) {
-    const icon = document.createElement("img");
-    icon.setAttribute(
-      "src",
-      "https://raw.githubusercontent.com/abdulshakur03/FEM--conference_ticket_generator/441fe01f42d851db430296a0cc7f8db829b42900/assets/images/icon-info.svg"
-    );
-    error.innerHTML = "";
-    error.appendChild(icon);
-    error.appendChild(document.createTextNode(message));
-    error.classList.add("error");
-    nameField.classList.add("fields");
-  } else {
-    error.textContent = "";
-    error.classList.remove("error");
-    nameField.classList.remove("fields");
-  }
-  emailValidation();
-};
-
-//email validation
-//Error Message Starts
-
-const erroMessage = (message) => {
+function showError(message, error) {
   const icon = document.createElement("img");
-  icon.setAttribute(
-    "src",
-    "https://raw.githubusercontent.com/abdulshakur03/FEM--conference_ticket_generator/441fe01f42d851db430296a0cc7f8db829b42900/assets/images/icon-info.svg"
-  );
+  icon.setAttribute("src", "./assets/images/icon-info.svg");
   error.innerHTML = "";
   error.appendChild(icon);
   error.appendChild(document.createTextNode(message));
   error.classList.add("error");
-  nameField.classList.add("fields");
-};
+}
+function noError(error) {
+  error.textContent = "";
+  error.classList.remove("error");
+}
 
-// Error Message Ends
-const isValidEmail = (email) => {
-  const re =
-    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(String(email).toLowerCase());
-};
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  nameValidation("please enter full name");
+  emailValidation("please enter a valid email address");
+  gitHubValidation("Not a valid gitHub");
+});
 
-const emailValidation = () => { 
-  const emailValue = email.value.trim();
-  if (emailValue === "") {
-    errorMessage("Please Provide an Email");
-  } else if (!isValidEmail(emailValue)) {
-    errorMessage("Provide a valide Email");
+//Name validation
+const nameValidation = (message) => {
+  const minNum = 8;
+  if (nameField.value === "" || nameField.value.length < minNum) {
+    showError(message, errorName);
+    nameField.classList.add("fields");
   } else {
-    error.textContent = "";
-    error.classList.remove("error");
+    noError(errorName);
     nameField.classList.remove("fields");
+  }
+};
+
+// email Validation;
+
+const emailValidation = (message) => {
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const emailValue = email.value;
+  if (emailRegex.test(emailValue)) {
+    noError(errorEmail);
+    email.classList.remove("fields");
+  } else {
+    showError(message, errorEmail);
+    email.classList.add("fields");
+  }
+};
+// gitHub Validation
+const gitHubValidation = (message) => {
+  const gitHubRegex = /^(?!-)(?!.*--)[a-zA-Z0-9-]{1,39}(?<!-)$/;
+  const gitHubFieldValue = gitHubField.value;
+
+  if (gitHubRegex.test(gitHubFieldValue)) {
+    noError(errorGithub);
+    gitHubField.classList.remove("fields");
+  } else {
+    showError(message, errorGithub);
+    gitHubField.classList.add("fields");
   }
 };
