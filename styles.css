@@ -27,10 +27,8 @@ body {
     url(./assets/images/pattern-squiggly-line-top.svg);
 
   background-position: center, top left, bottom left, top right;
-  background-size: 100% auto,
-    /* Scale 'pattern-lines.svg' to full width */ 150px 150px,
-     500px auto, 400px 300px;
-    
+  background-size: 100% auto, 150px 150px, 500px auto, 400px 300px;
+
   background-repeat: no-repeat;
   padding-top: 80px;
   margin-top: -80px;

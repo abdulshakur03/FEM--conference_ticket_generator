@@ -107,7 +107,7 @@ document.addEventListener("click", (e) => {
 //forms
 const form = document.querySelector("#form");
 const nameField = form.querySelector('input[name ="name"]');
-const emailField = form.querySelector('input[type ="email"]');
+const email = form.querySelector('input[type ="email"]');
 const error = form.querySelector(".error");
 
 form.addEventListener("submit", (e) => {
@@ -119,12 +119,52 @@ const errorMessage = (message) => {
   const minNum = 8;
   if (nameField.value === "" || nameField.value.length < minNum) {
     const icon = document.createElement("img");
-    icon.setAttribute("src", "/assets/images/icon-info.svg");
+    icon.setAttribute(
+      "src",
+      "https://raw.githubusercontent.com/abdulshakur03/FEM--conference_ticket_generator/441fe01f42d851db430296a0cc7f8db829b42900/assets/images/icon-info.svg"
+    );
     error.innerHTML = "";
     error.appendChild(icon);
     error.appendChild(document.createTextNode(message));
     error.classList.add("error");
     nameField.classList.add("fields");
+  } else {
+    error.textContent = "";
+    error.classList.remove("error");
+    nameField.classList.remove("fields");
+  }
+  emailValidation();
+};
+
+//email validation
+//Error Message Starts
+
+const erroMessage = (message) => {
+  const icon = document.createElement("img");
+  icon.setAttribute(
+    "src",
+    "https://raw.githubusercontent.com/abdulshakur03/FEM--conference_ticket_generator/441fe01f42d851db430296a0cc7f8db829b42900/assets/images/icon-info.svg"
+  );
+  error.innerHTML = "";
+  error.appendChild(icon);
+  error.appendChild(document.createTextNode(message));
+  error.classList.add("error");
+  nameField.classList.add("fields");
+};
+
+// Error Message Ends
+const isValidEmail = (email) => {
+  const re =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+};
+
+const emailValidation = () => { 
+  const emailValue = email.value.trim();
+  if (emailValue === "") {
+    errorMessage("Please Provide an Email");
+  } else if (!isValidEmail(emailValue)) {
+    errorMessage("Provide a valide Email");
   } else {
     error.textContent = "";
     error.classList.remove("error");
