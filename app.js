@@ -7,18 +7,22 @@ const avatarUpload = document.querySelector(".upload-icon_container");
 const uploadText = document.querySelector(".upload_text");
 const click = dragAreaHover.querySelector(".click");
 const fileClick = document.querySelector("#avatarUpload");
+const ticketFullName = document.querySelector(".ticketFullName");
 
-let file;
+// let file;
+let file = null;
+let uploadedImageUrl = null;
 
 click.addEventListener("click", (e) => {
   e.stopPropagation();
-  fileClick.click(); // Triggers the hidden file input
+  fileClick.click(); // This is the input[type="file"]
+  console.log("click area triggered");
 });
 
 // Handle file selection after clicking the input
 fileClick.addEventListener("change", (e) => {
   file = e.target.files[0];
-  console.log(file);
+  console.log("clicked again");
 
   if (file) {
     imageUpload(); // Call your upload function here
@@ -33,6 +37,8 @@ dragArea.addEventListener("dragleave", (e) => {
   dragAreaHover.classList.remove("active");
 });
 dragArea.addEventListener("drop", (e) => {
+  e.stopPropagation();
+
   e.preventDefault();
   file = e.dataTransfer.files[0];
   imageUpload();
@@ -47,12 +53,14 @@ function imageUpload() {
     uploadHint.textContent = `File too large, please upload a photo under 500KB`;
     uploadHint.style.color = "hsla(7, 71%, 60%)";
     uploadHintImage.style.color = "hsla(7, 71%, 60%)";
+    uploadedImageUrl = null; // Clear if file is too large
     return;
   }
   if (validFileType.includes(fileType)) {
     const fileReader = new FileReader();
     fileReader.onload = () => {
       let fileURL = fileReader.result;
+      uploadedImageUrl = fileURL;
       let imgTag = `<img src='${fileURL}' alt='image' style= "border-radius: 7px">`;
       avatarUpload.innerHTML = imgTag;
       avatarUpload.classList.add("imageDropped");
@@ -64,6 +72,7 @@ function imageUpload() {
   } else {
     uploadHint.textContent = `Invalid file type. Please upload a JPG or PNG.`;
     uploadHint.style.color = "hsla(7, 71%, 60%)";
+    uploadedImageUrl = null;
   }
 }
 
@@ -98,76 +107,173 @@ document.addEventListener("click", (e) => {
     dragArea.append(uploadText);
     uploadHint.textContent = ` Upload your photo (JPG or PNG, max size: 500KB).`;
     uploadHint.style.color = "white";
+
+    fileClick.value = "";
   }
   if (e.target.classList.contains("change")) {
+    console.log("change button triggered");
+
     fileClick.click(); //Triggers the hidden file input
+
+    fileClick.value = "";
   }
 });
 
 //forms
+// --- Core Form Elements ---
 const form = document.querySelector("#form");
-const nameField = form.querySelector('input[name ="name"]');
-const email = form.querySelector('input[type ="email"]');
-const gitHubField = form.querySelector('input[name ="gitHub"]');
+const ticketContainer = document.querySelector(".T-wrapper");
+const nameField = form.querySelector('input[name="name"]');
+const emailField = form.querySelector('input[name="email"]'); // Renamed 'email' to 'emailField' for clarity
+const githubField = form.querySelector('input[name="gitHub"]'); // Renamed 'gitHubField' for clarity
+
 const errorName = form.querySelector(".errorName");
 const errorEmail = form.querySelector(".errorEmail");
 const errorGithub = form.querySelector(".errorGithub");
+const newTicket = ticketContainer.querySelector(".new-ticket");
 
-function showError(message, error) {
+// --- Validation Helper Functions (Keep these as they are) ---
+function showError(message, errorElement) {
   const icon = document.createElement("img");
   icon.setAttribute("src", "./assets/images/icon-info.svg");
-  error.innerHTML = "";
-  error.appendChild(icon);
-  error.appendChild(document.createTextNode(message));
-  error.classList.add("error");
-}
-function noError(error) {
-  error.textContent = "";
-  error.classList.remove("error");
+  errorElement.innerHTML = ""; // Clear previous messages
+  errorElement.appendChild(icon);
+  errorElement.appendChild(document.createTextNode(message));
+  errorElement.classList.add("error");
 }
 
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  nameValidation("please enter full name");
-  emailValidation("please enter a valid email address");
-  gitHubValidation("Not a valid gitHub");
-});
+function noError(errorElement) {
+  errorElement.textContent = "";
+  errorElement.classList.remove("error");
+}
 
-//Name validation
-const nameValidation = (message) => {
+// --- Specific Validation Functions ---
+const validateName = () => {
+  // Renamed to validateName for consistency
   const minNum = 8;
-  if (nameField.value === "" || nameField.value.length < minNum) {
-    showError(message, errorName);
+  if (nameField.value.trim() === "" || nameField.value.trim().length < minNum) {
+    // Added .trim() to remove whitespace
+    showError("Please enter your full name (min 8 characters)", errorName);
     nameField.classList.add("fields");
+    return false; // Indicate validation failed
   } else {
     noError(errorName);
     nameField.classList.remove("fields");
+    return true; // Indicate validation passed
   }
 };
 
-// email Validation;
-
-const emailValidation = (message) => {
+const validateEmail = () => {
+  // Renamed to validateEmail for consistency
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  const emailValue = email.value;
+  const emailValue = emailField.value.trim(); // Use emailField and .trim()
   if (emailRegex.test(emailValue)) {
     noError(errorEmail);
-    email.classList.remove("fields");
+    emailField.classList.remove("fields");
+    return true;
   } else {
-    showError(message, errorEmail);
-    email.classList.add("fields");
+    showError("Please enter a valid email address", errorEmail);
+    emailField.classList.add("fields");
+    return false;
   }
 };
-// gitHub Validation
-const gitHubValidation = (message) => {
-  const gitHubRegex = /^(?!-)(?!.*--)[a-zA-Z0-9-]{1,39}(?<!-)$/;
-  const gitHubFieldValue = gitHubField.value;
 
-  if (gitHubRegex.test(gitHubFieldValue)) {
-    noError(errorGithub);
-    gitHubField.classList.remove("fields");
+const validateGithub = () => {
+  // Renamed to validateGithub and made active
+  const gitHubRegex = /^(?!-)(?!.*--)[a-zA-Z0-9-]{1,39}(?<!-)$/;
+  const gitHubFieldValue = githubField.value.trim(); // Use githubField and .trim()
+
+  if (gitHubFieldValue === "" || !gitHubRegex.test(gitHubFieldValue)) {
+    // Also check if empty
+    showError("Please enter a valid GitHub username", errorGithub);
+    githubField.classList.add("fields");
+    return false;
   } else {
-    showError(message, errorGithub);
-    gitHubField.classList.add("fields");
+    noError(errorGithub);
+    githubField.classList.remove("fields");
+    return true;
   }
 };
+
+// --- Form Submission Handler ---
+form.addEventListener("submit", (e) => {
+  e.preventDefault(); // Stop the page from reloading
+
+  // Run all validations and store their results
+  const isNameValid = validateName();
+  const isEmailValid = validateEmail();
+  const isGithubValid = validateGithub();
+
+  // ONLY proceed if ALL validations pass
+  if (isNameValid && isEmailValid && isGithubValid) {
+    // Collect all valid data
+    const userData = {
+      name: nameField.value.trim(),
+      email: emailField.value.trim(),
+      github: githubField.value.trim(),
+      avatar: uploadedImageUrl,
+    };
+
+    // Save to Local Storage
+    localStorage.setItem("person", JSON.stringify(userData));
+
+    // --- TEMPORARY: Confirm data is saved and log it ---
+    console.log("Form submitted successfully! Data saved to Local Storage:");
+    console.log(userData);
+    displayTicket(userData);
+  } else {
+    console.log("Form has validation errors. Not submitting.");
+  }
+});
+
+const displayTicket = (data) => {
+  form.style.display = "none";
+  ticketContainer.style.display = "block";
+
+  const ticketNameSpan = ticketContainer.querySelector(".name");
+  const ticketEmailSpan = ticketContainer.querySelector(".ticketEmailAddress");
+  const ticketGitHub = ticketContainer.querySelector(".ticket-gitHub");
+  const ticketNameBottom = ticketContainer.querySelector(".ticket-name-bottom");
+  const ticketImage = ticketContainer.querySelector(".ticket-image");
+
+  if (ticketNameSpan) {
+    ticketNameSpan.textContent = data.name;
+    ticketNameBottom.textContent = data.name;
+  }
+  if (ticketEmailSpan) {
+    ticketEmailSpan.textContent = data.email;
+  }
+
+  if (ticketGitHub) {
+    const gitHubIcon = document.createElement("img");
+    gitHubIcon.setAttribute("src", "./assets/images/icon-github.svg");
+    gitHubIcon.style.width = "15px";
+    ticketGitHub.innerHTML = ""; // Clear previous messages
+    ticketGitHub.appendChild(gitHubIcon);
+    ticketGitHub.appendChild(document.createTextNode(data.github));
+  }
+  if (ticketImage) {
+    if (data.avatar) {
+      ticketImage.src = data.avatar;
+    } else {
+      ticketImage.src = "./assets/images/user-default-image.png";
+    }
+  }
+};
+
+newTicket.addEventListener("click", (e) => {
+  e.preventDefault();
+  form.style.display = "block";
+  ticketContainer.style.display = "none";
+  nameField.value = "";
+  emailField.value = "";
+  githubField.value = "";
+
+  noError(errorName);
+  noError(errorEmail);
+  noError(errorGithub);
+
+  nameField.classList.remove("fields");
+  emailField.classList.remove("fields");
+  githubField.classList.remove("fields");
+});

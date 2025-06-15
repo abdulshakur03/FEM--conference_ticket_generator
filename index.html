@@ -3,7 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- displays site properly based on user's device -->
 
     <link
       rel="icon"
@@ -14,114 +13,155 @@
 
     <title>Frontend Mentor | Conference ticket generator</title>
 
-    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-    <!-- <style>
-      .attribution {
-        font-size: 11px;
-        text-align: center;
-      }
-      .attribution a {
-        color: hsl(228, 45%, 44%);
-      }
-    </style> -->
     <link rel="stylesheet" href="styles.css" />
     <script defer src="app.js"></script>
   </head>
   <body>
     <!-- Form starts -->
 
-    <div class="container">
-      <form id="form">
-        <header>
-          <div class="title flex">
-            <img
-              src="https://raw.githubusercontent.com/abdulshakur03/FEM--conference_ticket_generator/5e409c5fa55781c79db08263a3f1c86ac39a6c3a/assets/images/logo-full.svg"
-              alt="logo-mark"
-              class="title-image"
-            />
-          </div>
-          <div class="titleText flex">
-            <h1 class="mainTitle flex">
-              Your Journey to Coding Conf 2025 Starts Here!
+    <div class="wrapper">
+      <div class="container">
+        <form id="form">
+          <header>
+            <div class="title flex">
+              <img
+                src="https://raw.githubusercontent.com/abdulshakur03/FEM--conference_ticket_generator/5e409c5fa55781c79db08263a3f1c86ac39a6c3a/assets/images/logo-full.svg"
+                alt="logo-mark"
+                class="title-image"
+              />
+            </div>
+            <div class="titleText flex">
+              <h1 class="mainTitle flex">
+                Your Journey to Coding Conf 2025 Starts Here!
+              </h1>
+              <p class="subtitle">
+                Secure your spot at next year's biggest coding conference.
+              </p>
+            </div>
+          </header>
+          <section class="uploadImages">
+            <p style="margin-bottom: 10px">Upload Avatar</p>
+            <div class="hover">
+              <div class="uploadAvatar flex">
+                <div class="upload-icon_container">
+                  <img
+                    src="https://raw.githubusercontent.com/abdulshakur03/FEM--conference_ticket_generator/5e409c5fa55781c79db08263a3f1c86ac39a6c3a/assets/images/icon-upload.svg"
+                    alt="upload"
+                    class="upload-icon"
+                  />
+                </div>
+                <label for="avatarUpload" class="upload_text"
+                  >Drag and drop or <span class="click">click</span> to
+                  upload</label
+                >
+              </div>
+            </div>
+            <input type="file" name="upload" id="avatarUpload" />
+            <div class="uploadHint flex" style="margin-top: 5px">
+              <img
+                src="./assets/images/icon-info.svg"
+                alt="info"
+                class="upload_hint_image"
+              />
+              <p class="upload_hint_text">
+                Upload your photo (JPG or PNG, max size: 500KB).
+              </p>
+            </div>
+          </section>
+          <section class="inputField flex">
+            <div class="inputType flex">
+              <label for="name">Full Name</label>
+              <input type="text" name="name" class="input" />
+              <div class="error errorName"></div>
+            </div>
+            <div class="inputType flex">
+              <label for="email">Email Address</label
+              ><input
+                type="email"
+                name="email"
+                class="input"
+                placeholder="example@email.com"
+              />
+              <div class="error errorEmail"></div>
+            </div>
+            <div class="inputType flex">
+              <label for="gitHub">GitHub Username</label>
+              <input
+                type="text"
+                name="gitHub"
+                class="input"
+                placeholder="@yourusername"
+              />
+              <div class="error errorGithub"></div>
+            </div>
+            <button
+              type="submit"
+              class="inputType submit"
+              id="generatorTicketBtn"
+            >
+              Generate My Ticket
+            </button>
+          </section>
+        </form>
+        <!-- Form ends -->
+
+        <!-- Generated tickets starts -->
+        <div class="T-wrapper">
+          <div class="T-container">
+            <div class="T-title">
+              <img
+                src="./assets/images/logo-full.svg"
+                alt="logo-mark"
+                class="title-image"
+              />
+            </div>
+            <h1 class="align">
+              Congrats,
+              <span class="name" id="ticket-name"><!-- Full Name --></span>!
+              Your ticket is ready.
             </h1>
-            <p class="subtitle">
-              Secure your spot at next year's biggest coding conference.
+            <p class="text align" style="padding: 10px 45px; width: 30%">
+              We've emailed your ticket to
+              <span class="ticketEmailAddress"><!-- Email Address --></span>
+              and will send updates in the run up to the event.
             </p>
-          </div>
-        </header>
-        <section class="uploadImages">
-          <p style="margin-bottom: 10px">Upload Avatar</p>
-          <div class="hover">
-            <div class="uploadAvatar flex">
-              <div class="upload-icon_container">
-                <!-- <img src="./assets/images/head-no-heart.png" alt="" > -->
-                <img
-                  src="https://raw.githubusercontent.com/abdulshakur03/FEM--conference_ticket_generator/5e409c5fa55781c79db08263a3f1c86ac39a6c3a/assets/images/icon-upload.svg"
-                  alt="upload"
-                  class="upload-icon"
-                />
+            <!-- Ticket goes here -->
+            <div class="ticket-container">
+              <div class="ticket-heading flex">
+                <img src="./assets/images/logo-mark.svg" alt="" />
+                <div class="header-right">
+                  <h2 class="ticket">Coding Conf</h2>
+                  <p>Jan 31, 2025 / Austin, TX</p>
+                </div>
               </div>
 
-              <label for="avatarUpload" class="upload_text"
-                >Drag and drop or <span class="click">click</span> to
-                upload</label
-              >
+              <div class="ticketInformation flex">
+                <!-- image -->
+                <img
+                  src="./assets/images/user-default-image.png"
+                  alt=""
+                  class="ticket-image"
+                />
+                <!-- name and github -->
+                <div class="ticket-info-right">
+                  <h2 class="ticket-name-bottom"></h2>
+                  <p class="ticket-gitHub flex"></p>
+                </div>
+              </div>
             </div>
+
+            <!-- <button class="new-ticket">Generate New Ticket</button> -->
           </div>
-          <input type="file" name="upload" id="avatarUpload" />
-          <div class="uploadHint flex" style="margin-top: 5px">
-            <img
-              src="./assets/images/icon-info.svg"
-              alt="info"
-              class="upload_hint_image"
-            />
-            <p class="upload_hint_text">
-              Upload your photo (JPG or PNG, max size: 500KB).
-            </p>
-          </div>
-        </section>
-        <section class="inputField flex">
-          <div class="inputType flex">
-            <label for="name">Full Name</label>
-            <input type="text" name="name" class="input" />
-            <div class=" error errorName"></div>
-          </div>
-          <div class="inputType flex">
-            <label for="email">Email Address</label
-            ><input
-              type="email"
-              name="email"
-              class="input"
-              placeholder="example@email.com"
-            />
-            <div class="error errorEmail"></div>
-          </div>
-          <div class="inputType flex">
-            <label for="gitHub">GitHub Username</label>
-            <input
-              type="text"
-              name="gitHub"
-              class="input"
-              placeholder="@yourusername"
-            />
-            <div class="error errorGithub"></div>
-          </div>
-          <div class="inputType submit">
-            <input
-              type="submit"
-              name="submit"
-              id="button"
-              value="Generate My Ticket"
-            />
-          </div>
-          <!-- <div class="remove">Remove image</div> -->
-        </section>
-      </form>
-      <!-- Form ends -->
-      <div class="attribution">
-        Challenge by
-        <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a
-        >. Coded by <a href="#">MAO</a>.
+        </div>
+
+        <!-- Generated tickets ends -->
+
+        <div class="attribution">
+          Challenge by
+          <a href="https://www.frontendmentor.io?ref=challenge"
+            >Frontend Mentor</a
+          >. Coded by <a href="#">MAO</a>.
+        </div>
       </div>
     </div>
   </body>

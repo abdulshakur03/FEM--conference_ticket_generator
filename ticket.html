@@ -1,22 +1,50 @@
-<!-- Generated tickets starts -->
-<div class="container">
-  <div class="title">
-    <img
-      src="./assets/images/logo-full.svg"
-      alt="logo-mark"
-      class="title-image"
-    />
-  </div>
-  <h1>
-    Congrats,
-    <span class="fullName"><!-- Full Name --></span>! Your ticket is ready.
-  </h1>
-  <p class="text">
-    We've emailed your ticket to
-    <span class="emailAddress"><!-- Email Address --></span>
-    and will send updates in the run up to the event.
-  </p>
-  <div class="ticket">Coding Conf Jan 31, 2025 / Austin, TX</div>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ticket</title>
+    <link rel="stylesheet" href="./ticket.css" />
+  </head>
+  <body>
+    <!-- Generated tickets starts -->
+    <div class="T-wrapper">
+      <div class="T-container">
+        <div class="T-title">
+          <img
+            src="./assets/images/logo-full.svg"
+            alt="logo-mark"
+            class="title-image"
+          />
+        </div>
+        <h1 class="align">
+          Congrats,
+          <span class="name"><!-- Full Name --></span>! Your ticket is ready.
+        </h1>
+        <p class="text align">
+          We've emailed your ticket to
+          <span class="ticketEmailAddress"
+            ><!-- Email Address -->neodrip@gmail.com</span
+          >
+          and will send updates in the run up to the event.
+        </p>
+        <!-- <img
+          class="ticket-image"
+          src="./assets/images/pattern-ticket.svg"
+          alt=""
+        /> -->
+        <div class="ticket-heading flex">
+          <img src="./assets/images/logo-mark.svg" alt="" />
+          <h2 class="ticket">Coding Conf</h2>
+        </div>
+        <p style="text-align: center">Jan 31, 2025 / Austin, TX</p>
 
-<!-- Generated tickets ends -->
+        <div class="ticketInformation"></div>
+      </div>
+    </div>
+
+    <!-- Generated tickets ends -->
+
+    <script src="./app.js"></script>
+  </body>
+</html>
