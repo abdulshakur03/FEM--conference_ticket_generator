@@ -20,7 +20,7 @@ This project was undertaken to solidify my knowledge of core front-end technolog
 ## Screenshot
 
 ![Screenshot of Ticket Generator on Desktop](Screenshots/desktop/desktop.png)
-![Screenshot of Ticket Generator on Mobile](Sreenshots/mobile/mobile.png)
+![Screenshot of Ticket Generator on Mobile](Screenshots/mobile/mobile.png)
 
 ## Links
 
@@ -57,4 +57,4 @@ I faced a significant challenge with implementing the drag-and-drop image upload
 
 ## Acknowledgments
 
-* Inspired by various Frontend Mentor challenges and online tutorials.
+- Inspired by various Frontend Mentor challenges and online tutorials.
