@@ -19,8 +19,8 @@ This project was undertaken to solidify my knowledge of core front-end technolog
 
 ## Screenshot
 
-![Screenshot of Ticket Generator on Desktop](screenshots/desktop/desktop.png)
-![Screenshot of Ticket Generator on Mobile](screenshots/mobile/mobile.png)
+![Screenshot of Ticket Generator on Desktop](Screenshots/desktop/desktop.png)
+![Screenshot of Ticket Generator on Mobile](Sreenshots/mobile/mobile.png)
 
 ## Links
 
