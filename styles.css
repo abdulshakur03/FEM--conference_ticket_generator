@@ -194,8 +194,8 @@ button,
   margin: 30px auto;
   font-size: 12px;
   align-self: center;
-  margin-bottom: 0;
-  width: 20%;
+  margin-bottom: 10px;
+  width: 30%;
 }
 
 .error {
@@ -297,4 +297,106 @@ button,
   object-position: center;
   border-radius: 5px;
   padding-bottom: 5px;
+}
+
+/* Mobile Version */
+
+/* --- Media Queries for Smaller Screens --- */
+
+@media (max-width: 768px) {
+  /* Styles for tablets and smaller desktops */
+  .container {
+    /* padding: 10px; */
+    max-width: 100%;
+  }
+  #form {
+    width: 100%;
+  }
+  .title {
+    margin-bottom: 30px;
+  }
+  .title-image {
+    margin-top: 20px;
+  }
+  .mainTitle {
+    width: 100%;
+    font-size: 30px;
+  }
+  .subtitle {
+    text-align: center;
+    width: 80%;
+    margin: 0 auto;
+    font-size: 18px;
+  }
+  .uploadImages {
+    width: 95%;
+  }
+  .inputField {
+    width: 95%;
+  }
+  .attribution {
+    margin-bottom: 10px;
+    width: 80%;
+  }
+}
+
+@media (max-width: 375px) {
+  /* Styles for mobile phones */
+  body {
+    margin-top: 15px;
+  }
+  .container {
+    background-image: url(./assets/images/pattern-lines.svg),
+      url(./assets/images/pattern-circle.svg),
+      url(./assets/images/pattern-squiggly-line-bottom-mobile-tablet.svg),
+      url(./assets/images/pattern-squiggly-line-top.svg);
+    background-position: top, top left, bottom left, top right;
+    background-size: 257% auto, 120px 150px, 250px auto, 120px 190px;
+  }
+  #form {
+    width: 100%;
+  }
+  .title {
+    margin-bottom: 30px;
+  }
+  .title-image {
+    margin-top: 20px;
+  }
+  .mainTitle {
+    width: 100%;
+    font-size: 30px;
+  }
+  .subtitle {
+    text-align: center;
+    width: 80%;
+    margin: 0 auto;
+    font-size: 18px;
+  }
+  .uploadImages {
+    width: 95%;
+  }
+  .inputField {
+    width: 95%;
+  }
+  .attribution {
+    margin-bottom: 10px;
+    width: 80%;
+  }
+
+  .T-title {
+    margin-bottom: 30px;
+  }
+  .align {
+    font-size: 27px;
+    width: 95%;
+  }
+
+  .text {
+    margin-top: 30px;
+    font-size: 20px;
+    width: 90%;
+  }
+  .ticket-container {
+    width: 90%;
+  }
 }
